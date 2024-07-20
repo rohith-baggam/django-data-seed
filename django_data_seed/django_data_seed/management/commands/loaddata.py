@@ -21,14 +21,11 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
         """
 
         self.stdout_error(str(app_name))
-        if app_name:
-            installed_apps = [
-                app_config.name for app_config in apps.get_app_configs() if app_config.name == app_name
-            ]
-        else:
-            installed_apps = [
-                app_config.name for app_config in apps.get_app_configs()
-            ]
+        installed_apps = [
+            app_config.name for app_config in apps.get_app_configs()
+            if not app_name or app_config.name == app_name
+        ]
+
         models = []
         for model in apps.get_models():
             if model._meta.app_label in installed_apps:
