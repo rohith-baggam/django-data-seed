@@ -23,6 +23,22 @@ INSTALLED_APPS = [
 
 ```
 
+## Dependencies
+
+This package requires the following Python packages:
+
+- `Django` (>=3.2)
+- `Faker` (>=8.0.0)
+
+These dependencies will be installed automatically when you install `django-data-seed` using pip. If you need to install them manually, you can use the following commands:
+
+```bash
+bashCopy code
+pip install colorama>=0.4.6
+pip install Faker>=26.0.0
+
+```
+
 ## Usage
 
 **Note** : The current version of `django-data-seed` works with native Django fields only. It does not support Django Postgres-specific fields.
@@ -80,10 +96,12 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Support
 
-If you encounter any issues or have any questions, please open an issue on the GitHub repository.visit the
+If you encounter any issues or have any questions, please open an issue on the GitHub repository.visit the [GITHUB](https://github.com/rohith-baggam/django-data-seed)
 
 https://github.com/rohith-baggam/django-data-seed
 
 ## Author
 
-Rohith Baggam
+Rohith Bagga
+
+[LinkedIn Profile](https://www.linkedin.com/in/rohith-raj-baggam/)
