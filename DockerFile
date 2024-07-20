@@ -1,0 +1,16 @@
+# Extend from the official MSSQL Server 2019 Docker image
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+# Install prerequisites
+RUN apt-get update && \
+    apt-get install -y \
+    gnupg \
+    curl && \
+    # Import Microsoft GPG key
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    # Configure repository
+    curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+    # Update apt-get
+    apt-get update && \
+    # Install the ODBC driver
+    ACCEPT_EULA=Y apt-get install -y msodbcsql17

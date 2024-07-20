@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Abcd.1234"  # Change this to your desired SA password
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"  # Map container port 1433 to host port 1433
+    networks:
+      - mssql-net
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh  # Mount the entrypoint script
+    entrypoint: /bin/bash /entrypoint.sh  # Specify the entrypoint script to execute
+
+networks:
+  mssql-net:
+    driver: bridge

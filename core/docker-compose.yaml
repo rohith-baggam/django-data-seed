@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql_server_container
+    environment:
+      SA_PASSWORD: "Abcd.1234"  # Replace with your strong password
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"  # Expose port 1433 for SQL Server
+    volumes:
+      - ./data:/var/opt/mssql  # Persist data outside container
+
