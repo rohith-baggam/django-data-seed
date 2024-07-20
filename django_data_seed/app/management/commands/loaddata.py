@@ -6,19 +6,20 @@ from .colorama_theme import StdoutTextTheme
 import sys
 
 
-class LoadRandomData(ModelFieldCharaterstics, StdoutTextTheme):
+class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
     def get_models(self, app_name: str) -> list:
         """
-            info :
-                This function list of models in django project. If app_name is specified then it will return 
-                models of specific App
+        Info:
+            This function returns a list of models in a Django project. If an `app_name` is provided, it will return 
+            the models for that specific app.
 
-            Args:
-                - app_name: name of the app 
+        Args:
+            - app_name: The name of the app to filter models by.
 
-            Returns:
-                - List of models
+        Returns:
+            - A list of models.
         """
+
         self.stdout_error(str(app_name))
         if app_name:
             installed_apps = [
@@ -44,17 +45,18 @@ class LoadRandomData(ModelFieldCharaterstics, StdoutTextTheme):
         field_values: dict
     ) -> dict:
         """
-            info :
-                This function generates random value of provided
-                field of django mode and appends value to dictonary
+            Info:
+                This function generates a random value for the specified model field and adds it to the provided dictionary.
 
-            Args :
-                - field        : Model field.
-                - model        : The Django model class.
-                - field_values : dictonary
+            Args:
+                - field: The model field.
+                - model: The Django model class.
+                - field_values: The dictionary to which the generated value will be appended.
+
             Returns:
-                - None
+                - dict
         """
+
         for model_field in SUPPORTED_DJANGO_MODEL_FIELDS:
             if hasattr(self, model_field):
                 method = getattr(self, model_field)
@@ -70,14 +72,16 @@ class LoadRandomData(ModelFieldCharaterstics, StdoutTextTheme):
 
     def fill_data_to_model(self, model: models.Model) -> object:
         """
-            info :
-                This function creates new instance for specified model
+        Info:
+            This function creates a new instance of the specified model.
 
-            Args :
-                - model  : The Django model class.
-            Returns:
-                - new model instance
+        Args:
+            - model: The Django model class.
+
+        Returns:
+            - A new instance of the specified model.
         """
+
         fields = model._meta.get_fields()
         field_values = {}
         many_to_many_data_instance = {}
@@ -131,14 +135,17 @@ class LoadRandomData(ModelFieldCharaterstics, StdoutTextTheme):
 
     def create_related_instance(self, related_model: models.Model):
         """
-            info :  if relation fields contains chain or nested relational fields this function calls itself recursively to get child instances else will
-            returns new value
+            Info:
+                If the model contains chain or nested relational fields, this function recursively processes these fields 
+                to retrieve child instances. Otherwise, it returns a new value.
 
-            Args :
-                - model  : The Django model class.
+            Args:
+                - model: The Django model class.
+
             Returns:
-                - new model instance
+                - A new model instance.
         """
+
         related_fields = related_model._meta.get_fields()
         related_field_values = {}
 
@@ -180,17 +187,19 @@ class LoadRandomData(ModelFieldCharaterstics, StdoutTextTheme):
         )
         return class_object
 
-    def loaddata(self, number_of_objects, app_name):
+    def SeedData(self, number_of_objects, app_name):
         """
-            info :  This function fetches all models in each app
-            or if app_name if specified then it will fetch models
-            of that specific app. Each model iterates number_of_objects to create
-            number_of_objects objects 
-            Args :
-                - model  : The Django model class.
+            Info:
+                This function retrieves all models from each app, or from a specific app if `app_name` is provided. For each model,
+                it creates the specified number of objects by iterating `number_of_objects` times.
+
+            Args:
+                - model: The Django model class.
+
             Returns:
-                - new model instance
+                - New instances of the model.
         """
+
         with transaction.atomic():
             [
                 self.fill_data_to_model(
