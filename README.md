@@ -72,6 +72,7 @@ python3 manage.py seeddata --django-app app_name
 - Django 3.2
 - Django 4.0
 - Django 4.1
+- Django >= 4
 
 ### Python Versions
 
