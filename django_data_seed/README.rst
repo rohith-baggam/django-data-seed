@@ -55,13 +55,13 @@ python manage.py seeddata
 To specify the number of instances to create for each model, use the `--no-of-objects` argument:
 
 ```json
-python3 manage.py fake_filler --no-of-objects 100
+python3 manage.py seeddata --no-of-objects 100
 ```
 
 To populate data for a specific Django app, use the `--django-app` argument:
 
 ```json
-python3 manage.py fake_filler --django-app app_name
+python3 manage.py seeddata --django-app app_name
 ```
 
 ## Supported Versions

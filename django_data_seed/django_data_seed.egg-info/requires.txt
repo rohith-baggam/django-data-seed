@@ -1,2 +1,0 @@
-colorama>=0.4.6
-Faker>=26.0.0
