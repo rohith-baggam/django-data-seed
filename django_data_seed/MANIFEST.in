@@ -1,3 +1,4 @@
 include LICENSE
 include README.rst
 recursive-include django_data_seed/management/commands *.py
+recursive-include django_data_seed/utils *.py

@@ -1,3 +1,36 @@
+Metadata-Version: 2.1
+Name: django-data-seed
+Version: 0.4.1
+Summary: A Django app to generate and seed database models with realistic test data using Faker. Includes features for automatic backup of deleted instances and detailed log entries for instance mutations, ensuring data safety and comprehensive change tracking.
+Home-page: https://github.com/rohith-baggam/django-data-seed
+Author: Rohith Baggam
+Author-email: baggamrohithraj@gmail.com
+License: MIT License
+Project-URL: Bug Reports, https://github.com/rohith-baggam/django-data-seed/issues
+Project-URL: Source, https://github.com/rohith-baggam/django-data-seed
+Keywords: django data seed
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 **Django Data Seed** is a powerful Django application designed to simplify the process of populating your database with realistic test data. By leveraging the Faker library, this package allows you to effortlessly generate random data for your models using a single command via `manage.py`. It is especially beneficial for developers who need diverse datasets to ensure comprehensive test coverage and data integrity.
 
 ## Features

@@ -2,16 +2,18 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-data-seed',
-    version='0.3.0',
+    version='0.4.1',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',
-    description='A Django app to generate and seed database models with random data.',
+    description='A Django app to generate and seed database models with realistic test data using Faker. '
+    'Includes features for automatic backup of deleted instances and detailed log entries for '
+    'instance mutations, ensuring data safety and comprehensive change tracking.',
     long_description=open('README.rst').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/rohith-baggam/django-data-seed',
     author='Rohith Baggam',
-    author_email='baggarohithraj@gmail.com',
+    author_email='baggamrohithraj@gmail.com',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
