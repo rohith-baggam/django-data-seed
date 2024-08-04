@@ -16,3 +16,6 @@ class StdoutTextTheme:
 
     def stdout_standard(self, message):
         print(Fore.WHITE + message + Style.RESET_ALL)
+
+    def stdout_headers(self, message):
+        print(Fore.WHITE + Style.BRIGHT + message + Style.RESET_ALL)

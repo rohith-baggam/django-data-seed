@@ -2,37 +2,42 @@ from django.apps import apps
 from .fields import ModelFieldCharaterstics
 from .utils import SUPPORTED_DJANGO_MODEL_FIELDS
 from django.db import models, transaction
-from .colorama_theme import StdoutTextTheme
+from ...utils.colorama_theme import StdoutTextTheme
 import sys
 
 
 class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
-    def get_models(self, app_name: str) -> list:
+    def get_models(self, app_name: str, model_name: str) -> list:
         """
-        Info:
-            This function returns a list of models in a Django project. If an `app_name` is provided, it will return 
-            the models for that specific app.
+        Returns a list of models in a Django project. 
+        If an `app_name` is provided, it returns models for that specific app.
+        If a `model_name` is provided, it filters models by that name.
 
         Args:
             - app_name: The name of the app to filter models by.
+            - model_name: The name of the model to filter by.
 
         Returns:
             - A list of models.
         """
+        if app_name and model_name:
+            self.stdout_error("Either enter app_name or model_name")
+            sys.exit(0)
 
-        self.stdout_error(str(app_name))
         installed_apps = [
             app_config.name for app_config in apps.get_app_configs()
             if not app_name or app_config.name == app_name
         ]
 
-        models = []
-        for model in apps.get_models():
-            if model._meta.app_label in installed_apps:
-                models.append(model)
+        models = [
+            model for model in apps.get_models()
+            if model._meta.app_label in installed_apps and (not model_name or model_name in str(model))
+        ]
+
         if not models:
             self.stdout_error("No Apps or no Models found")
             sys.exit(0)
+
         return models
 
     def validate_and_give_value(
@@ -184,7 +189,7 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
         )
         return class_object
 
-    def SeedData(self, number_of_objects, app_name):
+    def SeedData(self, number_of_objects, app_name, model_name):
         """
             Info:
                 This function retrieves all models from each app, or from a specific app if `app_name` is provided. For each model,
@@ -201,7 +206,7 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
             [
                 self.fill_data_to_model(
                     model
-                ) for model in self.get_models(app_name) for _ in range(
+                ) for model in self.get_models(app_name, model_name) for _ in range(
                     number_of_objects
                 )
             ]

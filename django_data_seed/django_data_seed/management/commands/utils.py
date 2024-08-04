@@ -1,9 +1,13 @@
 from faker import Faker
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.utils.text import slugify
 from django.db import models
 import datetime
+import random
 from typing import Any
+import random
+import uuid
+import string
+
 fake = Faker()
 
 
@@ -101,6 +105,45 @@ class DatabaseUtils:
             val = fake.random_int(min=min_value, max=max_value)
         return val
 
+    def get_choices_charfield(self, obj: models.CharField) -> str:
+        choice_value = [
+            i[0] for i in obj.choices
+        ]
+        return random.choice(choice_value)
+
+    def random_string(self, length=10):
+        letters = string.ascii_lowercase
+        return ''.join(random.choice(letters) for _ in range(length))
+
+    def random_phone_number(self):
+        return f'+1-{random.randint(100,999)}-{random.randint(100,999)}-{random.randint(1000,9999)}'
+
+    def random_profile(self):
+        return {
+            "username": self.random_string(),
+            "website": f"https://{self.random_string()}.com",
+            "bio": self.random_string(50)
+        }
+
+    def create_random_json(self):
+        data = {
+            "id": str(uuid.uuid4()),
+            "name": self.random_string(),
+            "address": {
+                "street": self.random_string(15),
+                "city": self.random_string(),
+                "state": self.random_string(2),
+                "zip_code": random.randint(10000, 99999)
+            },
+            "email": f"{self.random_string()}@example.com",
+            "phone_number": self.random_phone_number(),
+            "company": self.random_string(),
+            "job": self.random_string(),
+            "date_of_birth": f"{random.randint(1950, 2000)}-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}",
+            "profile": self.random_profile()
+        }
+        return data
+
 
 SUPPORTED_DJANGO_MODEL_FIELDS = [
     "BooleanField",
@@ -124,5 +167,6 @@ SUPPORTED_DJANGO_MODEL_FIELDS = [
     "IPAddressField",
     "GenericIPAddressField",
     "BinaryField",
-    "DurationField"
+    "DurationField",
+    "JSONField"
 ]

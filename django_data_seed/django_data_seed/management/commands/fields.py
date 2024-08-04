@@ -1,4 +1,4 @@
-from .colorama_theme import StdoutTextTheme
+from ...utils.colorama_theme import StdoutTextTheme
 from django.db import models
 from faker import Faker
 from .utils import DatabaseUtils
@@ -7,9 +7,7 @@ import random
 import datetime
 import secrets
 from django.utils.text import slugify
-from decimal import Decimal
-from .utils import SUPPORTED_DJANGO_MODEL_FIELDS
-models.BigAutoField
+
 
 fake = Faker()
 
@@ -26,7 +24,7 @@ class ModelFieldCharaterstics(
     def CharField(
             self,
             obj: models.CharField,
-            model
+            model: models.Model
     ) -> str:
         """
             Generates character data for a model's CharField.
@@ -38,6 +36,9 @@ class ModelFieldCharaterstics(
             Returns:
                 - A character string for the specified model field.
         """
+        if obj.choices:
+            value = self.get_choices_charfield(obj=obj)
+            return str(value)
 
         if obj.unique or obj.primary_key:
             value = self.get_unique_char_data(model=model, obj=obj)
@@ -57,6 +58,7 @@ class ModelFieldCharaterstics(
                 max_chars = obj.max_length
             elif obj.max_length is not None:
                 max_chars = int(obj.max_length) // 2
+
             value = fake.name() if max_chars < 50 or is_title else fake.text(max_nb_chars=max_chars)
             value = value[:max_chars-1]
 
@@ -506,3 +508,21 @@ class ModelFieldCharaterstics(
                 value=self.generate_random_duration
             )
         return self.generate_random_duration()
+
+    def JSONField(
+        self,
+        obj: models.JSONField,
+        model: models.Model
+    ) -> dict:
+        """
+            Generates a random json for a model's JSONField.
+
+            Args:
+                - obj: The JSONField instance from the model.
+                - model: The Django model class.
+
+            Returns:
+                - A random json value for the specified model field.
+        """
+
+        return self.create_random_json()
