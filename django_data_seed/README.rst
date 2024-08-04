@@ -99,6 +99,12 @@ INSTALLED_APPS = [
 ]
 ```
 
+After adding `django_data_seed` to your `INSTALLED_APPS`, run the following command to apply migrations:
+
+```python
+python3 manage.py migrate
+```
+
 ## Dependencies
 
 The following dependencies are required and will be installed automatically with `django-data-seed`:
@@ -170,14 +176,6 @@ python3 manage.py seeddata --django-model model_name
 - PostgreSQL
 - SQLite
 
-## Testing
-
-Run all test cases to ensure everything is working correctly:
-
-```python
-python3 manage.py test
-```
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/rohith-baggam/django-data-seed/blob/main/LICENSE) file for details.
@@ -195,3 +193,5 @@ For any issues or questions, open an issue on the [GitHub repository](https://gi
 Rohith Baggam
 
 [LinkedIn Profile](https://www.linkedin.com/in/rohith-raj-baggam/)
+
+---

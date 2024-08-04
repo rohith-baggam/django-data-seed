@@ -21,7 +21,7 @@ ENABLE_DJANGO_DATA_SEED_AUTO_BACKUP = True
 
 To disable, set the variable to `False` or remove it entirely. You can restore deleted instances from the Django admin panel by selecting the deleted instance and choosing the "Restore data" option.
 
-![Screenshot 2024-08-04 at 5.04.41 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1eec8b1f-b9a1-4749-9fb6-c138820ac100/1847f03c-b2af-4d20-8a82-6d5ac7351cf5/Screenshot_2024-08-04_at_5.04.41_PM.png)
+![Screenshot 2024-08-04 at 5.04.41 PM.png](https://file.notion.so/f/f/1eec8b1f-b9a1-4749-9fb6-c138820ac100/1847f03c-b2af-4d20-8a82-6d5ac7351cf5/Screenshot_2024-08-04_at_5.04.41_PM.png?table=block&id=4a7d6135-ed0d-45a1-b63e-dfa2d5047053&spaceId=1eec8b1f-b9a1-4749-9fb6-c138820ac100&expirationTimestamp=1722866400000&signature=rudNjY9YqzpKxs9icnc84tllYCUj1PNQm7zE4J0I48o&downloadName=Screenshot+2024-08-04+at+5.04.41%E2%80%AFPM.png)
 
 ### Log Entries for Instance Mutations
 
@@ -34,7 +34,7 @@ ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY = True
 
 Restore any instance to a previous state from the admin panel by selecting the log entry and choosing the "Restore data" option.
 
-![Screenshot 2024-08-04 at 5.04.17 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1eec8b1f-b9a1-4749-9fb6-c138820ac100/9a691703-e3a5-4972-85df-5a82011cab38/Screenshot_2024-08-04_at_5.04.17_PM.png)
+![Screenshot 2024-08-04 at 5.04.17 PM.png](https://file.notion.so/f/f/1eec8b1f-b9a1-4749-9fb6-c138820ac100/9a691703-e3a5-4972-85df-5a82011cab38/Screenshot_2024-08-04_at_5.04.17_PM.png?table=block&id=121c6a5f-abc3-4c55-b577-80574a08b9a3&spaceId=1eec8b1f-b9a1-4749-9fb6-c138820ac100&expirationTimestamp=1722866400000&signature=6wwpnEe9eCSWscXTp1O6vSXV2zRB0p02yFpGGuE4py8&downloadName=Screenshot+2024-08-04+at+5.04.17%E2%80%AFPM.png)
 
 ### Authentication Configurations
 
@@ -95,6 +95,12 @@ INSTALLED_APPS = [
     'django_data_seed',
     ...
 ]
+```
+
+After adding `django_data_seed` to your `INSTALLED_APPS`, run the following command to apply migrations:
+
+```python
+python3 manage.py migrate
 ```
 
 ## Dependencies
@@ -168,14 +174,6 @@ python3 manage.py seeddata --django-model model_name
 - PostgreSQL
 - SQLite
 
-## Testing
-
-Run all test cases to ensure everything is working correctly:
-
-```python
-python3 manage.py test
-```
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/rohith-baggam/django-data-seed/blob/main/LICENSE) file for details.
@@ -193,3 +191,5 @@ For any issues or questions, open an issue on the [GitHub repository](https://gi
 Rohith Baggam
 
 [LinkedIn Profile](https://www.linkedin.com/in/rohith-raj-baggam/)
+
+---
