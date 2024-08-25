@@ -4,7 +4,7 @@ from .utils import SUPPORTED_DJANGO_MODEL_FIELDS
 from django.db import models, transaction
 from ...utils.colorama_theme import StdoutTextTheme
 import sys
-from ...utils.excluded_models import SEED_DATA_EXCLUDED_MODELS
+from django_data_seed.utils.app_utils import get_filtered_models
 
 
 class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
@@ -23,21 +23,16 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
         """
         if app_name and model_name:
             self.stdout_error("Either enter app_name or model_name")
-            sys.exit(0)
+            # sys.exit(0)
 
-        installed_apps = [
-            app_config.name for app_config in apps.get_app_configs()
-            if not app_name or app_config.name == app_name
-        ]
-
-        models = [
-            model for model in apps.get_models()
-            if model._meta.app_label in installed_apps and (not model_name or model_name in str(model))
-        ]
-
+        models = get_filtered_models(
+            specific_app_name=app_name,
+            model_name=model_name
+        )
         if not models:
-            self.stdout_error("No Apps or no Models found")
-            sys.exit(0)
+            self.stdout_error(
+                f"No Apps or no Models found,{str(app_name)}, {str(model_name)}")
+            # sys.exit(0)
 
         return models
 
@@ -112,7 +107,7 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
                     self.stdout_error(
                         f'Error : Error occur while generating data for {field.name}, {str(model)}. Error : {str(e)}'
                     )
-                    sys.exit(0)
+                    # sys.exit(0)
         created_instance = model.objects.create(**field_values)
         # ? add instance created for many to many fields
         [
@@ -136,37 +131,48 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
             related_model
         )
 
-    def create_related_instance(self, related_model: models.Model):
+    def create_related_instance(self, related_model: models.Model, processed_models=None):
         """
-            Info:
-                If the model contains chain or nested relational fields, this function recursively processes these fields 
-                to retrieve child instances. Otherwise, it returns a new value.
+        Info:
+            If the model contains chain or nested relational fields, this function recursively processes these fields 
+            to retrieve child instances. Otherwise, it returns a new value.
 
-            Args:
-                - model: The Django model class.
+        Args:
+            - related_model: The Django model class.
+            - processed_models: A set to track already processed models.
 
-            Returns:
-                - A new model instance.
+        Returns:
+            - A new model instance.
         """
+
+        if processed_models is None:
+            processed_models = set()
+
+        # Avoid infinite recursion by checking if the model is already processed
+        if related_model in processed_models:
+            return None
+
+        # Mark the current model as processed
+        processed_models.add(related_model)
 
         related_fields = related_model._meta.get_fields()
         related_field_values = {}
 
         for field in related_fields:
-            if (
-                isinstance(field, models.AutoField)
-                or
-                isinstance(field, models.BigAutoField)
-                or
-                isinstance(field, models.SmallAutoField)
-            ):
-                # ? Skip AutoField, handled by the database
+            if isinstance(field, (models.AutoField, models.BigAutoField, models.SmallAutoField)):
+                # Skip AutoField, handled by the database
                 continue
 
             if isinstance(field, (models.ForeignKey, models.OneToOneField)):
-                # ? if relation fields contains chain or nested relational fields this function calls itself recursively to get child instances
+                # Avoid recursion on self-related fields
+                if field.related_model == related_model:
+                    continue
+
+                # If relation fields contain chain or nested relational fields,
+                # this function calls itself recursively to get child instances
                 related_field_values[field.name] = self.validate_and_create_related_instance(
-                    field)
+                    field
+                )
             else:
                 self.validate_and_give_value(
                     field,
@@ -174,9 +180,7 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
                     related_field_values
                 )
 
-        return related_model.objects.create(
-            **related_field_values
-        )
+        return related_model.objects.create(**related_field_values)
 
     def str_to_object(self, class_name: str, import_path: str):
         class_object = getattr(
@@ -202,12 +206,12 @@ class SeedData(ModelFieldCharaterstics, StdoutTextTheme):
             Returns:
                 - New instances of the model.
         """
-        with transaction.atomic():
-            for model in self.get_models(app_name, model_name):
-                if str(model.__name__) not in SEED_DATA_EXCLUDED_MODELS:
-                    print('model.__name__', model.__name__)
-                    for _ in range(number_of_objects):
 
-                        self.fill_data_to_model(
-                            model
-                        )
+        with transaction.atomic():
+            [
+                self.fill_data_to_model(
+                    model
+                ) for model in self.get_models(app_name, model_name) for _ in range(
+                    number_of_objects
+                )
+            ]

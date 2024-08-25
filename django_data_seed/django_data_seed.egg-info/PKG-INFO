@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: django-data-seed
-Version: 0.4.1
+Version: 0.4.2
 Summary: A Django app to generate and seed database models with realistic test data using Faker. Includes features for automatic backup of deleted instances and detailed log entries for instance mutations, ensuring data safety and comprehensive change tracking.
 Home-page: https://github.com/rohith-baggam/django-data-seed
 Author: Rohith Baggam

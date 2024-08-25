@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from .loaddata import SeedData
+from .load_data import SeedData
 
 
 class Command(BaseCommand):

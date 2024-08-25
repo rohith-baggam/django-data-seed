@@ -197,7 +197,7 @@ def process_entries_with_admin(
         modeladmin.message_user(request, "Successfully processed data")
 
 
-def backup_loaddata(modeladmin: admin.ModelAdmin, request: Any, queryset: Any) -> None:
+def restore_data(modeladmin: admin.ModelAdmin, request: Any, queryset: Any) -> None:
     """
     Action to backup data and process entries with deletion.
 

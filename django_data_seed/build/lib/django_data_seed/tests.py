@@ -16,10 +16,15 @@ from django_data_seed.utils.get_user import (
 
 )
 from django.test import TestCase
+from django.test import TestCase
 from django.core.management import call_command
 from .utils.colorama_theme import StdoutTextTheme
 import uuid
 from django_data_seed.utils.json_compare import compare_json_objects
+from django_data_seed.utils.app_utils import (
+    get_all_custom_apps_and_sub_apps,
+    get_filtered_models
+)
 
 
 class DataDataSeedTestCase(TestCase, StdoutTextTheme):
@@ -27,34 +32,8 @@ class DataDataSeedTestCase(TestCase, StdoutTextTheme):
         Test case for Django Data Seed, covering all data field types in Django.
     """
     # ? test models
-    model_names = [
-        'DjangoDataSeedBooleanModel',
-        'DjangoDataSeedEmailModel',
-        'DjangoDataSeedCharModel',
-        'DjangoDataSeedDecimalModel',
-        'DjangoDataSeedFloatModel',
-        'DjangoDataSeedIntegerModel',
-        'DjangoDataSeedUUIDModel',
-        'DjangoDataSeedPositiveBigIntegerModel',
-        'DjangoDataSeedPositiveIntegerModel',
-        'DjangoDataSeedPositiveSmallIntegerModel',
-        'DjangoDataSeedSmallIntegerModel',
-        'DjangoDataSeedBigIntegerModel',
-        'DjangoDataSeedDateModel',
-        'DjangoDataSeedDateTimeModel',
-        'DjangoDataSeedTimeModel',
-        'DjangoDataSeedTextModel',
-        'DjangoDataSeedSlugModel',
-        'DjangoDataSeedURLModel',
-        'DjangoDataSeedIPAddressModel',
-        'DjangoDataSeedGenericIPAddressModel',
-        'DjangoDataSeedBinaryModel',
-        'DjangoDataSeedDurationModel',
-        'DjangoDataSeedJSONModel',
-        'DjangoDataSeedForeignKeyModel',
-        'DjangoDataSeedOneToOneModel',
-        'DjangoDataSeedManyToManyModel',
-    ]
+    app_names = get_all_custom_apps_and_sub_apps()
+    model_names = get_filtered_models()
 
     def run_seed_command_for_model(self, model_name):
         try:
@@ -71,11 +50,29 @@ class DataDataSeedTestCase(TestCase, StdoutTextTheme):
         except Exception as e:
             self.stdout_error(f"Failed to seed data for {model_name}: {e}")
 
+    def run_seed_command_for_apps(self, app_name):
+        try:
+            # ? Run the seeddata command
+            call_command(
+                'seeddata',
+                '--django-app',
+                app_name,
+                '--no-of-objects',
+                '10'
+            )
+            self.stdout_headers(f"Successfully seeded data for {app_name}")
+
+        except Exception as e:
+            self.stdout_error(f"Failed to seed data for {app_name}: {e}")
+
     def test_seed_data_for_all_models(self):
         self.stdout_headers("\n\nStarting Django Data Seed test cases")
         for model_name in self.model_names:
             with self.subTest(model=model_name):
                 self.run_seed_command_for_model(model_name)
+        for app_name in self.app_names:
+            with self.subTest(model=app_name):
+                self.run_seed_command_for_apps(app_name)
 
 
 class MockRequest:
@@ -115,7 +112,6 @@ class DjangoDataSeedAutoBackupTestCase(TestCase, StdoutTextTheme):
             )
         char_instance_pk = char_instance.pk
         char_instance.delete()
-
         self.assertTrue(
             DjangoSeedDataBackUpModel.objects.filter(
                 object_id=char_instance_pk,

@@ -150,4 +150,4 @@ def data_logentry_post_save_handler(
             pk=pk).update(**data_dict)
     else:
         instance.delete()
-    return True
+        return True

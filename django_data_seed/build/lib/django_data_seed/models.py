@@ -144,6 +144,7 @@ def data_seed_auto_log_entry_pre_save_data_handler(sender: Type[models.Model], i
         ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY = getattr(
             settings, 'ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY', None)
         if not ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY:
+
             return
         # ? only update if any changes happend
         data_dict = data_logentry_prev_save_handler(
@@ -156,7 +157,7 @@ def data_seed_auto_log_entry_pre_save_data_handler(sender: Type[models.Model], i
             name="django_data_seed_auto_logentry_pk",
             value=instance.pk
         )
-    except Exception:
+    except Exception as e:
         pass
 
 
@@ -178,12 +179,14 @@ def data_seed_auto_log_entry_post_save_data_handler(sender: Type[models.Model], 
         Returns:
             None
     """
+
     try:
         if sender.__name__ in auto_log_entry_get_excluded_models():
             return
         ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY = getattr(
             settings, 'ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY', None)
         if not ENABLE_DJANGO_DATA_SEED_AUTO_LOG_ENTRY:
+
             return
         is_data_saved = data_logentry_post_save_handler(
             sender=sender,
@@ -191,10 +194,11 @@ def data_seed_auto_log_entry_post_save_data_handler(sender: Type[models.Model], 
             queryset=DjangoSeedDataLogEntryModel.objects.all()
         )
         if is_data_saved:
+
             colorma_theme.stdout_success("Databack up successfully..!")
         # ? clear the information loaded to threads
         clear_thread_variable('django_data_seed_auto_logentry_pk')
-    except Exception:
+    except Exception as e:
         pass
 
 

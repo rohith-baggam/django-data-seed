@@ -1,43 +1,9 @@
 from django.conf import settings
-from django.apps import apps
-
-
-SEED_DATA_EXCLUDED_MODELS = [
-    'LogEntry',
-    'DjangoDataSeedBooleanModel',
-    'DjangoDataSeedEmailModel',
-    'DjangoDataSeedCharModel',
-    'DjangoDataSeedDecimalModel',
-    'DjangoDataSeedFloatModel',
-    'DjangoDataSeedIntegerModel',
-    'DjangoDataSeedUUIDModel',
-    'DjangoDataSeedPositiveBigIntegerModel',
-    'DjangoDataSeedPositiveSmallIntegerModel',
-    'DjangoDataSeedSmallIntegerModel',
-    'DjangoDataSeedBigIntegerModel',
-    'DjangoDataSeedDateModel',
-    'DjangoDataSeedDateTimeModel',
-    'DjangoDataSeedTimeModel',
-    'DjangoDataSeedTextModel',
-    'DjangoDataSeedURLModel',
-    'DjangoDataSeedIPAddressModel',
-    'DjangoDataSeedGenericIPAddressModel',
-    'DjangoDataSeedBinaryModel',
-    'DjangoDataSeedDurationModel',
-    'DjangoDataSeedJSONModel',
-    'DjangoDataSeedForeignKeyModel',
-    'DjangoDataSeedOneToOneModel',
-    'DjangoDataSeedManyToManyModel',
-    'DjangoDataSeedPositiveIntegerModel',
-    'DjangoDataSeedSlugModel',
-    'DjangoSeedDataLogEntryModel',
-    'DjangoSeedDataBackUpModel'
-]
 
 EXCLUDED_MODELS = [
-    'LogEntry',
+    'DjangoSeedDataBackUpModel',
     'DjangoSeedDataLogEntryModel',
-    'DjangoSeedDataBackUpModel'
+    'LogEntry',
 ]
 
 
