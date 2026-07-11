@@ -1,0 +1,96 @@
+site_name: django-data-seed
+site_description: Zero-config, whole-project database seeding for Django, powered by Mimesis.
+site_author: Rohith Baggam
+site_url: https://rohith-baggam.github.io/django-data-seed/
+
+repo_name: rohith-baggam/django-data-seed
+repo_url: https://github.com/rohith-baggam/django-data-seed
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2026 Rohith Baggam — MIT License
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    # ? All navigation lives in the LEFT sidebar (no top tabs) -- Swagger / RTD
+    # ? style. On mobile it becomes a collapsible hamburger drawer automatically.
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tooltips
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Supported versions: support.md
+  - Dependencies: dependencies.md
+  - Features:
+      - Overview: features/index.md
+      - Data generation: features/generation.md
+      - Relationships: features/relationships.md
+      - Row coherence: features/coherence.md
+      - Uniqueness: features/uniqueness.md
+      - Pre-flight checks: features/preflight.md
+      - File & media fields: features/files.md
+  - Reference:
+      - CLI (seeddata): cli.md
+      - Python API: python-api.md
+  - Guides:
+      - Seed a demo store: guides/demo-data.md
+      - Reproducible CI fixtures: guides/reproducible-fixtures.md
+      - Check DB health: guides/db-health-check.md
+      - Custom overrides: guides/overrides.md
+  - Background:
+      - Faker vs Mimesis: background/faker-vs-mimesis.md
+      - v0.4 vs v1.0: background/v0-vs-v1.md
+  - Changelog: changelog.md
+  - Migrating (0.4 → 1.0): migrating.md

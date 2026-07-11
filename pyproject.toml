@@ -1,0 +1,98 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-data-seed"
+version = "1.0.0"
+description = "Zero-config, whole-project database seeding for Django, powered by Mimesis."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Rohith Raj Baggam", email = "baggamrohithraj@gmail.com" }]
+keywords = ["django", "seed", "seeding", "fixtures", "mimesis", "test-data", "fake-data"]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "Django>=4.0",
+    "mimesis>=11",
+    "rich>=13",
+]
+
+[project.urls]
+Homepage = "https://github.com/rohith-baggam/django-data-seed"
+Documentation = "https://rohith-baggam.github.io/django-data-seed/"
+Source = "https://github.com/rohith-baggam/django-data-seed"
+Issues = "https://github.com/rohith-baggam/django-data-seed/issues"
+Changelog = "https://github.com/rohith-baggam/django-data-seed/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.1"]
+mysql = ["mysqlclient>=2.1"]
+mssql = ["mssql-django>=1.3"]
+oracle = ["oracledb>=1.4"]
+dev = [
+    "pytest>=8",
+    "pytest-django>=4.7",
+    "hypothesis>=6",
+    "ruff>=0.5",
+    "mypy>=1.10",
+    "tox>=4",
+    # ? tests/testapp declares an ImageField, so Django's fields.E210 system
+    # ? check (and the ImageField provider) need Pillow available.
+    "Pillow>=10",
+]
+docs = [
+    "mkdocs-material>=9.5",
+    "mkdocs>=1.6",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+django_data_seed = ["py.typed"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+python_files = ["test_*.py"]
+testpaths = ["tests"]
+# ? Put the repo root on sys.path so `tests.settings` / `tests.testapp` import
+# ? under the bare `pytest` console script (CI), not only under `python -m pytest`.
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_ignores = true
+ignore_missing_imports = true
