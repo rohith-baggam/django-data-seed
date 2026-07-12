@@ -20,7 +20,7 @@ Everything the ``seeddata`` management command does is available here.
 
 from __future__ import annotations
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 __all__ = [
     "seed",

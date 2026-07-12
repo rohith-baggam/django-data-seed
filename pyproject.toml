@@ -1,14 +1,15 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-data-seed"
-version = "1.0.0"
+version = "1.0.1"
 description = "Zero-config, whole-project database seeding for Django, powered by Mimesis."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Rohith Raj Baggam", email = "baggamrohithraj@gmail.com" }]
 keywords = ["django", "seed", "seeding", "fixtures", "mimesis", "test-data", "fake-data"]
 classifiers = [
@@ -22,7 +23,6 @@ classifiers = [
     "Framework :: Django :: 5.2",
     "Framework :: Django :: 6.0",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",

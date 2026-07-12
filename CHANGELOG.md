@@ -4,7 +4,11 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/), and the project adheres to
 [Semantic Versioning](https://semver.org/).
 
-## [1.0.0] — unreleased
+## [1.0.1]
+
+The first public 1.x release. (The `1.0.0` version number is unavailable on
+PyPI — its filename was reserved by an earlier deleted upload — so the rewrite
+ships as `1.0.1`.)
 
 A ground-up rewrite. The concept — zero-config, whole-project seeding by
 introspection — is unchanged; almost everything under it is new.
