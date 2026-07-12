@@ -8,6 +8,13 @@ pip install django-data-seed
 python manage.py seeddata --count 20 --seed 42
 ```
 
+<video controls preload="metadata" poster="assets/videos/demo-poster.jpg" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+  <source src="assets/videos/demo.mp4" type="video/mp4">
+  <track kind="captions" src="assets/videos/demo.vtt" srclang="en" label="English" default>
+  Your browser doesn't support embedded video — download it directly:
+  <a href="assets/videos/demo.mp4">demo.mp4</a>.
+</video>
+
 ---
 
 ## What is database seeding?

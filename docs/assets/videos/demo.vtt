@@ -1,0 +1,45 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.000
+django-data-seed — zero-config Django database seeding
+
+2
+00:00:04.000 --> 00:00:29.067
+Install it, add "django_data_seed" to INSTALLED_APPS, then migrate. That's the whole setup.
+
+3
+00:00:30.067 --> 00:00:34.500
+--dry-run previews the seed plan and pre-flight checks — writes nothing to the database.
+
+4
+00:00:35.500 --> 00:00:40.600
+--count sets how many rows to create per model.
+
+5
+00:00:41.600 --> 00:01:19.300
+--seed 7 makes the run reproducible: run it, wipe the database, run the exact same command again — identical rows both times.
+
+6
+00:01:20.300 --> 00:02:00.233
+--locale switches the realistic data to a region: US English, then UK English, on the same model.
+
+7
+00:02:01.233 --> 00:02:16.733
+--strategy controls foreign keys: "reuse" points at existing parents, "create" builds a fresh one for every child.
+
+8
+00:02:17.733 --> 00:02:23.200
+--exclude skips specific models or apps from the run.
+
+9
+00:02:24.200 --> 00:02:29.333
+--format json gives machine-readable output — perfect for CI pipelines.
+
+10
+00:02:30.333 --> 00:02:45.533
+The finale: seeding the entire project at once — 750 rows per model, 4,500 rows across 6 tables, bulk-inserted in well under a second.
+
+11
+00:02:46.533 --> 00:02:50.033
+pip install django-data-seed — github.com/rohith-baggam/django-data-seed

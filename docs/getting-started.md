@@ -51,6 +51,18 @@ Seed plan — 50 rows per model
 ✨ 50 rows across 1 model in 0.06s (seed 42)
 ```
 
+## Watch it in action
+
+A two-minute walkthrough — configuring the app, `--dry-run`, the main CLI
+flags one at a time, and a 750-row whole-project seed:
+
+<video controls preload="metadata" poster="../assets/videos/demo-poster.jpg" style="width:100%;border-radius:8px;margin:1.5rem 0;">
+  <source src="../assets/videos/demo.mp4" type="video/mp4">
+  <track kind="captions" src="../assets/videos/demo.vtt" srclang="en" label="English" default>
+  Your browser doesn't support embedded video — download it directly:
+  <a href="../assets/videos/demo.mp4">demo.mp4</a>.
+</video>
+
 ## Preview before you write
 
 `--dry-run` runs the pre-flight checks and prints the plan **without inserting a
